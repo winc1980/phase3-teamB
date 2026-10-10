@@ -7,7 +7,8 @@
 ### 1. Install dependencies
 
 プロジェクトのルートディレクトリで依存関係をインストールします。
-
+> [!WARNING]
+> wslだとうまく動きません。気を付けてください
 ```bash
 bun install
 ```
