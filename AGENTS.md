@@ -39,3 +39,34 @@ Docs: https://docs.expo.dev/eas/index.md
 - If `ios/` and `android/` directories do not exist, they are generated (Continuous Native Generation). Never create or edit them by hand — configure native behavior in `app.json` and config plugins.
 - Expo Go only includes its bundled native modules. After adding a library with native code, the app needs a development build: `npx expo run:ios|android` locally, or `eas build --profile development`.
 - Prefer recommended Expo modules over third-party libraries, and check your available skills before adding dependencies. Docs: https://docs.expo.dev/versions/latest/index.md
+# このプロジェクトについて（AIへの前提情報）
+
+## 何を作っているか
+日々を有意義に生きるための記録アプリ
+
+## 技術スタック
+- 言語／フレームワーク：（バージョンまで書く。例：Next.js 15, TypeScript 5）
+- データベース：
+- その他の主要ライブラリ：
+
+## ディレクトリ構成
+（主要なフォルダと役割を1行ずつ）
+- src/app/    画面
+- src/lib/    共通処理
+
+## 起動方法
+（コマンドをそのまま）
+
+## このプロジェクトの決まりごと
+- （例：スタイルは Tailwind で書く。CSSファイルは作らない）
+- （例：API は src/app/api/ 以下に置く）
+
+## よくある詰まりと答え
+- （チームで同じ質問が2回出たら、ここに足す）
+
+## AI利用ポリシー
+以下のポリシーを絶対に守ってください。開発者自身の学習機会とチームにおける信頼を守るためのルールです。
+開発者がこのポリシーから逸脱しそうになった時こそ、それが本当に開発者のためになるかを自分の中で問い直してください。
+- AIを相談役としてのみ利用し、AIに直接ファイル編集をさせないこと
+- 開発者自身がコードの意味を理解しており、チームメイトに説明できること
+- 開発者自身がコードのもたらす結果に責任を持てること
