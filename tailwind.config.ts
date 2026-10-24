@@ -69,5 +69,6 @@ module.exports = {
     hoverOnlyWhenSupported: true,
   },
   plugins: [],
+  darkMode: 'class',
 }
 
