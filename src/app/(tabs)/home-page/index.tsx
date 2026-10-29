@@ -20,5 +20,3 @@ export default function HomePage() {
     </View>
   );
 }
-
-// onPress={() => router.push({ pathname: `./home-page/${entry.id}`})}
