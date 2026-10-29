@@ -1,22 +1,22 @@
 import { Text, View, ScrollView, Pressable } from "react-native";
 import { entries } from "@/mocks/entry";
-import { HomeToday } from "@/lib/dayjs"
+import { HomeToday } from "@/lib/dayjs";
 import { EntryCard } from "./Card";
+import { Ellipsis } from "lucide-react-native";
 
 export default function HomePage() {
   return (
-    <View className="flex-1 ">
-      <View className="absolute top-16 left-12">
-        <Text className="text-xl">{HomeToday}</Text>
+    <ScrollView className="bg-slate-900">
+      <View className="flex-row  justify-between p-10 pb-40">
+        <Text className=" text-white text-3xl">{HomeToday}</Text>
+        <Ellipsis className="text-white" />
       </View>
 
-    <ScrollView className="" >
-    <View className="mt-64">
-    {entries.map((entry) => (
-      <EntryCard entry={entry} key={entry.id} />
-    ))}
-    </View>
+      <View className="mt-6">
+        {entries.map((entry) => (
+          <EntryCard entry={entry} key={entry.id} />
+        ))}
+      </View>
     </ScrollView>
-    </View>
   );
 }
