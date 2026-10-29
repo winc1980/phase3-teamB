@@ -1,12 +1,7 @@
-import { Text, View, ScrollView } from "react-native";
+import { Text, View, ScrollView, Pressable } from "react-native";
 import { entries } from "@/mocks/entry";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { HomeToday } from "@/lib/dayjs";
+import { HomeToday } from "@/lib/dayjs"
+import { EntryCard } from "./Card";
 
 export default function HomePage() {
   return (
@@ -16,21 +11,14 @@ export default function HomePage() {
       </View>
 
     <ScrollView className="" >
-    <View className="flex-col items-center mt-64">
+    <View className="mt-64">
     {entries.map((entry) => (
-      <Card key={entry.id} className="mb-3 w-5/6">
-        <CardHeader>
-          <CardTitle>{entry.title}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <View>
-            <Text>{entry.content}</Text>
-          </View>
-        </CardContent>
-      </Card>
+      <EntryCard entry={entry} key={entry.id} />
     ))}
     </View>
     </ScrollView>
     </View>
   );
 }
+
+// onPress={() => router.push({ pathname: `./home-page/${entry.id}`})}
