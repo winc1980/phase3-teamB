@@ -23,6 +23,21 @@ import { Card } from '@/components/ui/card';
  * 入力画面で問題なく動くなら　都合のいい感じに改変しちゃって大丈夫です
  */
 
+// 許容できる写真の細長さは縦長横長ともに 1:maxRatioまで　1より大きい値の方が分かりやすい
+const MAX_RATIO = 2;
+
+// global.cssができたら消す
+const white = '#faf9f7';
+const gray = '#e4e9ee'
+const black = '#314e6f';
+
+// global.cssができたらそこからひっぱってくる
+const iconW = 2;
+
+const textC = black;
+const backC = white;
+const borderC = gray; // 写真の背景にも応用
+
 // 選択した画像は、これを使うページ側でuseStateの変数として管理してください　部品は情報を保持しません
 type Props = {
     // ユーザーが選んだイメージ　未選択時は無視
@@ -80,21 +95,6 @@ export default function ImageViewer({ selectedImage, setSelectedImage, heightRat
     );
 }
 
-// 許容できる写真の細長さは縦長横長ともに 1:maxRatioまで　1より大きい値の方が分かりやすい
-const MAX_RATIO = 2;
-
-// global.cssができたら消す
-const white = '#faf9f7';
-const gray = '#e4e9ee'
-const black = '#314e6f';
-
-// global.cssができたらそこからひっぱってくる
-const iconW = 2;
-
-const textC = black;
-const backC = white;
-const borderC = gray; // 写真の背景にも応用
-
 // 毎回描写時に呼び出す
 function defineStyles( selectedImage: ImagePicker.ImagePickerAsset | undefined, heightRatio?: number | undefined ) {
     let ratio;
@@ -143,17 +143,6 @@ function defineStyles( selectedImage: ImagePicker.ImagePickerAsset | undefined, 
            }
         },
 
-        // 写真を選ぶボタン　ボタン関連で一番外側のタグ
-        choosePhotoButton: {
-            className: cn( 
-                // こいつ自体の位置関連 topとrightを０で右上に位置するよう指定
-                "absolute top-0 right-0",
-
-                // 下位タグの位置指定
-                "justify-center items-center m-2"
-            ),
-        },
-
         // 未選択時に写真の代替として表示する背景
         photoNotChoosedContainer: {
             className: cn(
@@ -172,7 +161,7 @@ function defineStyles( selectedImage: ImagePicker.ImagePickerAsset | undefined, 
         buttonCircle: {
             className: cn(
                 // 見た目 Buttonには初期値があるらしので抹消
-                "p-0 size-16 rounded-full",
+                "p-0 w-12 h-12 sm:w-12 sm:h-12 rounded-full",
                 //　下位のタグの位置に関する指定　つまりはアイコンの指定
                 "justify-center items-center",
             ),
@@ -180,6 +169,18 @@ function defineStyles( selectedImage: ImagePicker.ImagePickerAsset | undefined, 
             style: {
                 backgroundColor: backC,
             },
+        },
+        
+        // 写真を選ぶボタン　ボタン関連で一番外側のタグ
+        choosePhotoButton: {
+            className: cn( 
+                // buttonの初期設定抹消
+                "w-0 h-0 sm:w-0 sm:h-0",
+                // こいつ自体の位置関連 topとrightを０で右上に位置するよう指定
+                "absolute top-0 right-0",
+                // 下位タグの位置指定
+                "justify-center items-center m-2"
+            ),
         },
 
         // 写真選択済み時のボタンのアイコン

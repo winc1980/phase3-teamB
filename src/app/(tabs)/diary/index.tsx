@@ -5,6 +5,8 @@ import * as ImagePicker from 'expo-image-picker';
 import ImageViewer from '@/components/ui/image-viewer';
 import { cn } from '../../../lib/utils';
 
+import InputCard from './inputCard';
+
 import {
   Card,
   CardContent,
@@ -16,82 +18,9 @@ import {
 import { Text } from '@/components/ui/text';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
+import { Input } from "@/components/ui/input"
 
 const MAX_DIARY_LENGTH = 1000;
-
-export default function DiaryEntryPage () {
-  // dark mode
-  const [ diary, setDiary ] = useState( '' );
-  const [ selectedImage, setSelectedImage ] = useState< ImagePicker.ImagePickerAsset | undefined > ( undefined );
-  
-  return (
-    <ScrollView { ...styles.container } >
-      {/* 一番上のもろもろ */}
-      <View { ...styles.topContainer } >
-        {/* 見た目調整の空白 */}
-        <View { ...styles.leftTC } />
-
-        {/* 日記を書く、の文字 */}
-        <View { ...styles.middleTC } >
-          <Text { ...styles.writeText } >
-            日記を書く
-          </Text>
-        </View>
-
-        {/* 日付とお天気アイコン */}
-        <View { ...styles.rightTC } >
-          <Text { ...styles.dateText } >
-            4月12日（土）
-          </Text>
-          <Sun { ...styles.sunnyIcon } /> 
-        </View>
-      </View>
-
-      {/* 真ん中の写真のとこ */}
-      <View { ...styles.middleContainer } >
-        <View
-          className = "flex-row w-3/5"
-        >
-          <ImageViewer selectedImage = { selectedImage } setSelectedImage={ setSelectedImage } />
-        </View>
-      </View>
-
-      {/* 下のもろもろ */}
-      <View { ...styles.bottomContainer } >
-        {/* タイトル かこまれてるところ */}
-        <Card { ...styles.titleContainer } >
-          <Pencil { ...styles.titleIcon } />
-          <Textarea { ...styles.titleText } />
-        </Card>
-
-        {/* カテゴリ 囲まれてるところ */}
-        <Card { ...styles.categoryContainer } >
-          <Tag { ...styles.categoryIcon } />
-          <Text { ...styles.categoryName } >カテゴリ</Text>
-          <View { ...styles.categorySpace } />
-          <Text { ...styles.categoryNotChoosedText } >未設定</Text>
-          <ChevronRight { ...styles.categoryArrowIcon } />
-        </Card>
-
-        {/* 日記 囲まれてるところ */}
-        <Card { ...styles.diaryContainer } >
-          <SquareText { ...styles.diaryIcon } />
-          <View { ...styles.diaryContainer2 } >
-            <Textarea
-              { ...styles.diaryText } 
-              value = { diary } onChangeText = { ( t ) => setDiary( t ) }
-            />
-            <Text { ...styles.diaryLengthText } >{ diary.length } / { MAX_DIARY_LENGTH }</Text>
-          </View>
-        </Card>
-          
-        <Button { ...styles.entryButton } >
-          <Text { ...styles.entryText } >投稿する</Text>
-        </Button>
-      </View>
-    </ScrollView>
-  );
-}
 
 const white = '#faf9f7';
 const black = '#314e6f';
@@ -101,6 +30,97 @@ const textC = black;
 const backC = white;
 const paleTextC = gray;
 const placeholderC = gray;
+
+// フォントに関して一括で指定したいものがあれば
+const font = "text-sm";
+const screenW = "w-3/5";
+
+export default function DiaryEntryPage () {
+  // dark mode
+  const [ diary, setDiary ] = useState( '' );
+  const [ selectedImage, setSelectedImage ] = useState< ImagePicker.ImagePickerAsset | undefined > ( undefined );
+  
+  return (
+    
+    <ScrollView { ...styles.container } > 
+      <Card { ...styles.outerCard } >
+        {/* 一番上のもろもろ */}
+        <View { ...styles.topContainer } >
+          {/* 見た目調整の空白 */}
+          <View { ...styles.leftTC } />
+
+          {/* 日記を書く、の文字 */}
+          <View { ...styles.middleTC } >
+            <Text { ...styles.writeText } >
+              日記を書く
+            </Text>
+          </View>
+
+          {/* 日付とお天気アイコン */}
+          <View { ...styles.rightTC } >
+            <Text { ...styles.dateText } >
+              10月30日（金）
+            </Text>
+            <Sun { ...styles.sunnyIcon } /> 
+          </View>
+        </View>
+
+        {/* 真ん中の写真のとこ */}
+        <View { ...styles.middleContainer } >
+          <ImageViewer selectedImage = { selectedImage } setSelectedImage={ setSelectedImage } />
+        </View>
+
+        {/* 下のもろもろ */}
+        <View { ...styles.bottomContainer } >
+          {/* タイトル かこまれてるところ　入力必須 */}
+          <InputCard 
+            title = { "タイトル" } 
+            mandatory = { true } 
+            iconName = { "Pencil" } 
+            oneLine = { true } 
+            useButton = { false }
+            placeholderText = { "タイトルを入力......" } 
+          />
+
+          {/* あとでここに日付を実装 入力必須 */}
+
+          {/* 場所 */}
+          <InputCard 
+            title = { "場所" } 
+            mandatory = { false } 
+            iconName = { "MapPin" } 
+            oneLine = { true } 
+            useButton = { false }
+            placeholderText = { "例）カフェ、学校、自宅......" } 
+          />
+
+          {/* カテゴリ 囲まれてるところ */}
+          <Card { ...styles.categoryContainer } >
+            <Tag { ...styles.categoryIcon } />
+            <Text { ...styles.categoryName } >カテゴリ</Text>
+            <View { ...styles.categorySpace } />
+            <Text { ...styles.categoryNotChoosedText } >未設定</Text>
+            <ChevronRight { ...styles.categoryArrowIcon } />
+          </Card>
+
+          <InputCard 
+            title = { "日記" } 
+            mandatory = { false } 
+            iconName = { "SquareText" } 
+            oneLine = { false } 
+            placeholderText = { "詳細を入力......" } 
+            diary = { diary }
+            setDiary = { ( t ) => setDiary }
+          />
+            
+          <Button { ...styles.entryButton } >
+            <Text { ...styles.entryText } >投稿する</Text>
+          </Button>
+        </View>
+      </Card>
+    </ScrollView>
+  );
+}
 
 const styles = {
   // containers
@@ -114,9 +134,27 @@ const styles = {
     backGroundColor: backC,
   },
 
+  outerCard: {
+    className: cn(
+        // 見た目
+        screenW,
+        "shadow-none border-2",
+        // 位置
+        "self-center",
+        // 子どもの位置、余白
+        "flex-col m-4 p-4"
+    )
+  },
+
   // topC: 一番上のもろもろ
   topContainer: {
-    className: "flex-row w-full m-2"
+    className: cn( 
+      // 見た目
+      "w-full",
+      "flex-row m-2",
+      // 位置
+      "self-center",
+    ),
   },
 
   // topC: 空白　左に空白の空間を用意するためだけのもの
@@ -126,7 +164,9 @@ const styles = {
 
   // topC: 「日記を書く」の文字の入れ物
   middleTC: {
-    className: "flex-1 justify-center items-center m-2"
+    className: cn( 
+      "flex-1 justify-center items-center m-2",
+    ),
   },
 
   // topC: 日付とお天気アイコン
@@ -140,6 +180,8 @@ const styles = {
     className: cn(
       // 見た目
       "w-full",
+      // 位置
+      "self-center",
       // 子どもの位置
       "flex-row justify-center items-center"
     )
@@ -149,7 +191,10 @@ const styles = {
   bottomContainer: {
     className: cn(
       // 見た目
+      "w-full",
       "flex-1",
+      // 位置
+      "self-center",
       // 子どもの位置
       "flex-col justify-center m-2"
     )
@@ -195,13 +240,15 @@ const styles = {
     className: "flex-1 flex-col",
   },
 
+  // -------------------------------------------------------------
+  // button
   // 投稿ぼたん
   entryButton: {
     className: cn(
       // 見た目
       "w-1/2 p-2 round-full",
       // 子どもの場所
-      "justify-center items-center"
+      "justify-center items-center self-center"
     ),
     backgroundColor: textC,
   },
@@ -212,7 +259,7 @@ const styles = {
   writeText: {
     className: cn(
       // font size
-      "text-sm",
+      font,
       // それ以外
       "flex-1 font-bold text-top text-center"
     ),
@@ -223,7 +270,7 @@ const styles = {
   dateText : {
     className: cn(
       // fontsize
-      "text-sm",
+      font,
       // それ以外
       "font-normal text-right"
     ),
@@ -234,7 +281,7 @@ const styles = {
   titleText: {
     className: cn(
       // フォント
-      "text-sm",
+      font,
       // 見た目
       "flex-1 border-0 shadow-none",
       "font-normal text-left"
@@ -248,7 +295,7 @@ const styles = {
   categoryName: {
     className: cn(
       // font
-      "text-sm",
+      font,
       // それ以外
       "font-normal text-left"
     ),
@@ -259,7 +306,7 @@ const styles = {
   categoryNotChoosedText: {
     className: cn(
       // font
-      "text-sm",
+      font,
       // それ以外
       "font-normal"
     ),
@@ -269,9 +316,9 @@ const styles = {
   diaryText: {
     className: cn(
       // font
-      "text-sm",
+      font,
       // それ以外
-      "flex-1 h-full",
+      "flex-1 h-360",
       "font-normal",
       "text-left text-top",
       "border-0 shadow-none"
@@ -286,7 +333,7 @@ const styles = {
   diaryLengthText: {
     className: cn(
       // font
-      "text-sm",
+      font,
       // それ以外
       "font-normal text-right"
     ),
@@ -296,7 +343,7 @@ const styles = {
   entryText: {
     className: cn(
       // font
-      "text-sm",
+      font,
       // それ以外
       "font-normal items-center"
     ),
