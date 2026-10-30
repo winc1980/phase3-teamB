@@ -8,17 +8,17 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
 /* これを使うときはこの段落をぜーーーーーーーーーーったい厳守！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
- * この部品を使うなら「高さの指定付きのコンテナ」で包んだ上で使うこと、じゃないと写真表示されません！！！！！！！！！！！！！！！
- * あと、これの親となるタグはflexdirectionがcolumnであるという前提のもとでつくってます　rowにした場合どうなるかは知りません　たぶん壊れます
+ * この部品を使うなら「横の長さの指定付きのコンテナ」で包んだ上で使うこと、じゃないと写真表示されません！！！！！！！！！！！！！！！
+ * あと、これの親となるタグはflexdirectionがrowであるという前提のもとでつくってます　columnにした場合どうなるかは知りません　たぶん壊れます
+ * 1 / heightRatioを求めるので heightRatioに０を入れると壊れます undefinedは大丈夫です
  * 
  * Propsの写真がUndefinedである場合、写真未選択とみなして選択画面のHTMLをかえす
  * 写真はページ側でUseStateで所持、こいつにはパラメータとしてuseStateで選言したset関数を渡す
  * 
  * (後々正方形に写真を切り取りたい場合に備えて)
- * 高さの指定がある場合、写真はその高さに合わせてスケールを変える
- * 写真の横幅は指定が無い場合、高さに合わせて設定する。
- * 横幅の指定として与えるのは縦幅を１とした時の比率。
- * 指定がなければ読み込んだ写真そのままに、１が来たら正方形になる。
+ * 横幅の指定がある場合、写真はその長さに合わせてスケールを変える
+ * 高さの指定として与えるのは横幅を１とした時の比率。
+ * 指定がなければ読み込んだ写真のデフォルトそのままに、１が来たら正方形になる。
  * 
  * 入力画面で問題なく動くなら　都合のいい感じに改変しちゃって大丈夫です
  */
@@ -29,12 +29,12 @@ type Props = {
     selectedImage?: ImagePicker.ImagePickerAsset;
     // useStateのset関数
     setSelectedImage: ( selectedImage: ImagePicker.ImagePickerAsset | undefined ) => void;
-    // 高さを１とした時の横の比率　ちなみにこいつはmaxRatioの制約を受けません
-    widthRatio?: number;
+    // 横幅を１とした時の縦の比率　ちなみにこいつはmaxRatioの制約を受けません
+    heightRatio?: number;
 };
 
-export default function ImageViewer({ selectedImage, setSelectedImage, widthRatio }: Props ) {
-    const styles = defineStyles( selectedImage, widthRatio );
+export default function ImageViewer({ selectedImage, setSelectedImage, heightRatio: heightRatio }: Props ) {
+    const styles = defineStyles( selectedImage, heightRatio );
 
     if( selectedImage !== undefined ) {
         return (
@@ -81,7 +81,7 @@ export default function ImageViewer({ selectedImage, setSelectedImage, widthRati
 }
 
 // 許容できる写真の細長さは縦長横長ともに 1:maxRatioまで　1より大きい値の方が分かりやすい
-const maxRatio = 2;
+const MAX_RATIO = 2;
 
 // global.cssができたら消す
 const white = '#faf9f7';
@@ -89,35 +89,32 @@ const gray = '#e4e9ee'
 const black = '#314e6f';
 
 // global.cssができたらそこからひっぱってくる
-const margin = 8;
-const radius = 16;
 const iconW = 2;
-const fontS = 16;
 
 const textC = black;
 const backC = white;
 const borderC = gray; // 写真の背景にも応用
 
 // 毎回描写時に呼び出す
-function defineStyles( selectedImage: ImagePicker.ImagePickerAsset | undefined, widthRatio?: number | undefined ) {
+function defineStyles( selectedImage: ImagePicker.ImagePickerAsset | undefined, heightRatio?: number | undefined ) {
     let ratio;
 
     if( selectedImage !== undefined ) {
         ratio = selectedImage.width / selectedImage.height;
         
-        if( widthRatio === undefined ) {
+        if( heightRatio === undefined ) {
             // 写真が縦長の場合
             if( ratio <= 1 ) {
                 // 許容される縦長さは縦横比がmaxRatio:1まで
-                ratio = Math.max( ratio, 1 / maxRatio );
+                ratio = Math.max( ratio, 1 / MAX_RATIO );
             } else 
             // 写真が横長の場合
             {
                 // 許容される横長さは縦横比が1:maxRatioまで
-                ratio = Math.min( ratio, maxRatio );
+                ratio = Math.min( ratio, MAX_RATIO );
             }
         } else {
-            ratio = widthRatio;
+            ratio = 1 / heightRatio;
         }
     } else {
         // すまほの横長写真のデフォルトの比率
@@ -129,18 +126,21 @@ function defineStyles( selectedImage: ImagePicker.ImagePickerAsset | undefined, 
         choosedPhotoContainer: {
             className: cn( 
                 // そもそもこいつが親いっぱいに広がっている必要がある
-                "flex-1 ",
+                "flex-1 w-100 h-100",
             ),
 
             style: {
                 // 写真の比率を決める
                 aspectRatio: ratio,
+                flex: 1,
             },
         },
 
         // 表示する写真そのもののスタイル　形は上のやつが決めるのでひたすらでっかくあればよい contentfitは初期値が'cover'なのでFlexだけ
         choosedPhoto: {
-           className: "flex-1"
+           style: {
+            flex:1,
+           }
         },
 
         // 写真を選ぶボタン　ボタン関連で一番外側のタグ
@@ -163,8 +163,6 @@ function defineStyles( selectedImage: ImagePicker.ImagePickerAsset | undefined, 
             ),
 
             style: {
-                width: '100%',
-                height: '100%',
                 aspectRatio: ratio,
                 backgroundColor: borderC,
             },        
@@ -187,7 +185,7 @@ function defineStyles( selectedImage: ImagePicker.ImagePickerAsset | undefined, 
         // 写真選択済み時のボタンのアイコン
         circleXIcon: {
             className: cn( 
-                "size-12"
+                "size-8"
             ),
             color: textC,
             strokeWidth: iconW,
@@ -196,7 +194,7 @@ function defineStyles( selectedImage: ImagePicker.ImagePickerAsset | undefined, 
         // 未選択時のボタンのアイコン
         imagePlusIcon: {
             className: cn( 
-                "size-12"
+                "size-8"
             ),
             color: textC,
             strokeWidth: iconW,
