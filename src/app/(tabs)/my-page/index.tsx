@@ -1,14 +1,14 @@
-import { Bold } from "lucide-react-native";
+import { Bold, Columns } from "lucide-react-native";
 import { Text, View, Image, ScrollView} from "react-native";
 
 export default function MyPage() {
   return (
   <ScrollView
   style={{
-    flex:1
+    marginVertical: 100
   }}>
     <View
-      style={{flex:3,borderWidth:1,borderColor:'brown',margin:20,borderRadius:20}}>
+      style={{borderWidth:1,borderColor:'#e4e9ee',margin:20,borderRadius:20}} className="">
       <View
       style={{
         flex:1,
@@ -19,15 +19,15 @@ export default function MyPage() {
           source={{
             uri: 'https://kotonohaworks.com/free-icons/wp-content/uploads/kkrn_icon_user_1.png',
           }}
-          style={{width: 250, height: 250, flex:1}}>
+          style={{width: 100, height: 100}}>
         </Image>
-        <View style={{flex:2}}>
+        <View style={{flex:1}}>
           <View style={{flex:1}}></View>
           <View style={{flex:1}}>
-            <Text style={{flex:1,padding:10,fontSize:30,fontWeight:'bold'}}>名前</Text>
+            <Text style={{flex:1,padding:10,fontSize:30,fontWeight:'bold'}}>増田響</Text>
           </View>
           <View style={{flex:1}}>
-            <Text style={{flex:1,padding:10,fontSize:25,fontWeight:'bold'}}>一言</Text>
+            <Text style={{flex:1,padding:10,fontSize:25,fontWeight:'bold'}}>ぶち上げ！</Text>
           </View>
           <View style={{flex:1}}></View>
         </View>
@@ -38,17 +38,17 @@ export default function MyPage() {
         flexDirection: 'row',
         padding:20
       }}>
-        <View style={{flex:1,borderWidth:2,borderColor:'brown',borderRadius:25,margin:10,padding:10,alignItems:'center'}}>
-          <Text style={{fontSize:40,fontWeight:'bold'}}>日記の数</Text>
-          <Text style={{fontSize:40,fontWeight:'normal'}}>〇個</Text>
+        <View style={{flex:1,borderWidth:2,borderColor:'#e4e9ee',borderRadius:15,marginRight:5,padding:10,alignItems:'center'}}>
+          <Text style={{fontSize:18,fontWeight:'bold'}}>日記の数</Text>
+          <Text style={{fontSize:30,fontWeight:'normal'}}>〇個</Text>
         </View>
-        <View style={{flex:1,borderWidth:2,borderColor:'brown',borderRadius:25,margin:10,padding:10,alignItems:'center'}}>
-          <Text style={{fontSize:40,fontWeight:'bold'}}>連続日数</Text>
-          <Text style={{fontSize:40,fontWeight:'normal'}}>〇日</Text>
+        <View style={{flex:1,borderWidth:2,borderColor:'#e4e9ee',borderRadius:15,marginHorizontal:5,padding:10,alignItems:'center'}}>
+          <Text style={{fontSize:18,fontWeight:'bold'}}>連続日数</Text>
+          <Text style={{fontSize:30,fontWeight:'normal'}}>〇日</Text>
         </View>
-        <View style={{flex:1,borderWidth:2,borderColor:'brown',borderRadius:25,margin:10,padding:10,alignItems:'center'}}>
-          <Text style={{fontSize:40,fontWeight:'bold'}}>写真の数</Text>
-          <Text style={{fontSize:40,fontWeight:'normal'}}>〇枚</Text>
+        <View style={{flex:1,borderWidth:2,borderColor:'#e4e9ee',borderRadius:15,marginLeft:5,padding:10,alignItems:'center'}}>
+          <Text style={{fontSize:18,fontWeight:'bold'}}>写真の数</Text>
+          <Text style={{fontSize:30,fontWeight:'normal'}}>〇枚</Text>
         </View>
       </View>
     </View>
@@ -59,28 +59,27 @@ export default function MyPage() {
         <View>
           <Text>アカウント</Text>
           <View>
-            <Text style={{flex:1,borderWidth:2,borderColor:'brown',borderRadius:8,margin:5,padding:10,}}>プロフィール編集</Text>
-            <Text style={{flex:1,borderWidth:2,borderColor:'brown',borderRadius:8,margin:5,padding:10,}}>通知設定</Text>
-            <Text style={{flex:1,borderWidth:2,borderColor:'brown',borderRadius:8,margin:5,padding:10,}}>プライバシー設定</Text>
+            <Text style={{flex:1,borderWidth:2,borderColor:'#e4e9ee',borderRadius:8,margin:5,padding:10,}}>プロフィール編集</Text>
+            <Text style={{flex:1,borderWidth:2,borderColor:'#e4e9ee',borderRadius:8,margin:5,padding:10,}}>通知設定</Text>
+            <Text style={{flex:1,borderWidth:2,borderColor:'#e4e9ee',borderRadius:8,margin:5,padding:10,}}>プライバシー設定</Text>
           </View>
         </View>
         <View>
           <Text>アプリ</Text>
           <View>
-            <Text style={{flex:1,borderWidth:2,borderColor:'brown',borderRadius:8,margin:5,padding:10,}}>テーマ</Text>
-            <Text style={{flex:1,borderWidth:2,borderColor:'brown',borderRadius:8,margin:5,padding:10,}}>文字サイズ</Text>
-            <Text style={{flex:1,borderWidth:2,borderColor:'brown',borderRadius:8,margin:5,padding:10,}}>データのバックアップ</Text>
+            <Text style={{flex:1,borderWidth:2,borderColor:'#e4e9ee',borderRadius:8,margin:5,padding:10,}}>テーマ</Text>
+            <Text style={{flex:1,borderWidth:2,borderColor:'#e4e9ee',borderRadius:8,margin:5,padding:10,}}>文字サイズ</Text>
+            <Text style={{flex:1,borderWidth:2,borderColor:'#e4e9ee',borderRadius:8,margin:5,padding:10,}}>データのバックアップ</Text>
           </View>
         </View>
         <View>
           <Text>ヘルプ</Text>
           <View>
-            <Text style={{flex:1,borderWidth:2,borderColor:'brown',borderRadius:8,margin:5,padding:10,}}>よくある質問</Text>
-            <Text style={{flex:1,borderWidth:2,borderColor:'brown',borderRadius:8,margin:5,padding:10,}}>お問い合わせ</Text>
+            <Text style={{flex:1,borderWidth:2,borderColor:'#e4e9ee',borderRadius:8,margin:5,padding:10,}}>よくある質問</Text>
+            <Text style={{flex:1,borderWidth:2,borderColor:'#e4e9ee',borderRadius:8,margin:5,padding:10,}}>お問い合わせ</Text>
           </View>
         </View>
     </View>
-
   </ScrollView>
   )
 }
