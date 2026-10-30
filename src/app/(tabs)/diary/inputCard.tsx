@@ -34,7 +34,7 @@ type Props = {
     } | { 
         oneLine: false; 
         diary: string; 
-        setDiary: ( diary: string | undefined ) => void 
+        setDiary: ( diary: string ) => void 
     }
 )
 
@@ -147,7 +147,7 @@ function defineStyles( mandatory: Boolean ) {
             color: black,
             placeholderColor: gray,
         },
-        
+
         // input area
         inputArea: {
             className: cn(

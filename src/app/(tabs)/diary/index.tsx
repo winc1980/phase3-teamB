@@ -110,7 +110,7 @@ export default function DiaryEntryPage () {
             oneLine = { false } 
             placeholderText = { "詳細を入力......" } 
             diary = { diary }
-            setDiary = { ( t ) => setDiary }
+            setDiary = { ( t ) => setDiary( t ) }
           />
             
           <Button { ...styles.entryButton } >
