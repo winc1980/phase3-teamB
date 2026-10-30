@@ -1,7 +1,22 @@
-import { Text } from "react-native";
+import { Text, View, ScrollView, Pressable } from "react-native";
+import { entries } from "@/mocks/entry";
+import { HomeToday } from "@/lib/dayjs"
+import { EntryCard } from "./Card";
 
-export default function Calendar() {
+export default function HomePage() {
   return (
-    <Text>Hello, HomePage!</Text>
-  )
+    <View className="flex-1 ">
+      <View className="absolute top-16 left-12">
+        <Text className="text-xl">{HomeToday}</Text>
+      </View>
+
+    <ScrollView className="" >
+    <View className="mt-64">
+    {entries.map((entry) => (
+      <EntryCard entry={entry} key={entry.id} />
+    ))}
+    </View>
+    </ScrollView>
+    </View>
+  );
 }
