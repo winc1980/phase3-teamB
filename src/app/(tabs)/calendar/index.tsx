@@ -1,7 +1,10 @@
-import { Text } from "react-native";
+import { View } from 'react-native';
+import CalendarComponent from '@/components/calendar/calendarComponent';
 
-export default function Calendar() {
+export default function App() {
   return (
-    <Text>Hello, Calendar</Text>
-  )
+    <View style={{ flex: 1 }}>
+      <CalendarComponent />
+    </View>
+  );
 }
