@@ -17,7 +17,7 @@ export function EntryCard({
 
   return (
     <Pressable className="items-center" onPress={handleCard}>
-      <Card className=" w-5/6 m-2">
+      <Card className=" w-5/6 m-2" isDarkTheme={isDarkTheme}>
         <CardHeader>
           <CardTitle className=" font-kiwi" style={{ color: textcolor }}>
             {entry.title}
