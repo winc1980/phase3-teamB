@@ -5,7 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 import ImageViewer from '@/components/ui/image-viewer';
 import { cn } from '../../../lib/utils';
 
-import InputCard from '../../../components/diary/inputCard';
+import InputCard from '@/components/diary/inputCard';
 
 import {
   Card,

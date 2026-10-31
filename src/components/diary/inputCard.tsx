@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import { cn } from '../../lib/utils';
+import { cn } from '@/lib/utils';
 import { Sun, Pencil, Tag, ChevronRight, SquareText, MapPin } from 'lucide-react-native';
 import { Card } from '@/components/ui/card';
 import { Text } from '@/components/ui/text';
