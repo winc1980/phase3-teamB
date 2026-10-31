@@ -1,19 +1,24 @@
 import { Text, TextClassContext } from "@/components/ui/text";
 import { cn } from "@/lib/utils";
-import { View } from "react-native";
+import { View, type ViewProps } from "react-native";
 
-function Card({
-  className,
-  ...props
-}: React.ComponentProps<typeof View> & React.RefAttributes<View>) {
+type CardProps = ViewProps & {
+  isDarkTheme?: boolean;
+};
+
+function Card({ isDarkTheme, className, ...props }: CardProps) {
+  // このbackgroundColorは仮で後でデバイスのテーマ変更により対応できるようにしたい
+
   return (
     <TextClassContext.Provider value="text-card-foreground">
       <View
         className={cn(
-          "bg-white opacity-90 border-border flex flex-col gap-6 rounded-2xl border py-6 shadow-sm  shadow-black/5",
+          "opacity-90 border-border flex flex-col gap-6 rounded-2xl border py-6 shadow-sm  shadow-black/5",
+          isDarkTheme ? "bg-slate-400" : "bg-white",
           className,
         )}
         {...props}
+        // 仮です
       />
     </TextClassContext.Provider>
   );
